@@ -17,3 +17,17 @@ def db(request):
     greetings = Greeting.objects.all()
 
     return render(request, "db.html", {"greetings": greetings})
+
+def create(request):
+    return render(request, "create.html")
+
+def map(request):
+    return render(request, "map.html")
+
+
+def signin(request):
+    return render(request, "signin.html")
+
+def edituser(request):
+    return render(request, "edituser.html")
+
