@@ -18,7 +18,7 @@ urlpatterns = [
     path("", hello.views.index, name="index"),
     path("db/", hello.views.db, name="db"),
     path("admin/", admin.site.urls),
-    path("create/", hello.views.create, name="Create"),
+    path("create/", hello.views.create, name="create"),
     path("edituser/", hello.views.edituser, name="edituser"),
     path("map/", hello.views.map, name="map"),
     path("signin/", hello.views.signin, name="signin")
