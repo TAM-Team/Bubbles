@@ -1,15 +1,7 @@
+{% extends "base.html" %}
 {% load static %}
 {% block content %}
-<body>
-	<nav>
-		<ul>
-			<li><a href="index.html"><i class="fa fa-spinner" aria-hidden="true"></i>Home</a></li>
-			<li class="active"><a href="create.html"><i class="fa fa-plus" aria-hidden="true"></i>Create</a></li>
-			<li><a href="map.html"><i class="fa fa-map" aria-hidden="true"></i>Map</a></li>
-			<li><a href="notifications.html"><i class="fa fa-bell" aria-hidden="true"></i>Notifications</a></li>
-			<li><a href="signin.html"><i class="fa fa-user" aria-hidden="true"></i>Sign In</a></li>
-		</ul>
-	</nav>
+
 	<div class="container">
 		<form autocomplete="on">
 			<label><span class="required">*</span></label>
@@ -37,6 +29,5 @@
 		<input type="reset" name="cancel" value="Cancel">
 		<input type="submit" name="Submit" value="Confirm">
 	</div>
-</body>
 
 {% endblock %}
