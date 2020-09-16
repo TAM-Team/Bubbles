@@ -22,6 +22,7 @@ class Post(models.Model):
     location = models.TextField("Location")
     description = models.TextField("Description")
     help_status = models.TextField("Help status")
+    username = User.username
 
     def __str__(self):
         return self.post_title
