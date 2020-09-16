@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+	<div class="container">
+		<form autocomplete="on">
+			<label><span class="required">*</span></label>
+						<select>
+							<option>Post</option>
+							<option>Event</option>
+						</select><br><br>
+			<label>Post/Event Title<span class="required">*</span></label>
+				<input type="text" required><br><br>
+			<label>Location<span class="required">*</span></label>
+				<input type="text" required><br><br>
+			<label> Start Date<span class="required">*</span></label>
+				<input type="date" id="strtDate" required><br><br>
+			<label> End Date<span class="required">*</span></label>
+				<input type="date" id="endDate" required><br><br>
+			<label> Start Time<span class="required">*</span></label>
+				<input type="time" id="strtTime" required><br><br>
+			<label> End Time<span class="required">*</span></label>
+				<input type="time" id="endTime" required><br><br>
+			<label> Attachment <span class="required">*</span></label>
+				<input type="file" id="myfile" required><br><br>
+				<label>Description<span>(Max 1000 words)</span></span></label><br>
+						<textarea rows="5" cols="50">Type Here</textarea>
+		<br><br><span>*Required fields</span><br><br>
+		<input type="reset" name="cancel" value="Cancel">
+		<input type="submit" name="Submit" value="Confirm">
+	</div>
+
+{% endblock %}

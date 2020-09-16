@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Bubbles</title>
+  <link rel="stylesheet" type="text/css" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  <script type="text/javascript" src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+  <!-- <style type="text/css">
+    .jumbotron {
+        background: #1591CA;
+        color: white;
+        padding-bottom: 80px
+    }
+    .jumbotron .btn-primary {
+        background: #62A9BE;
+        border-color: #95B410
+    }
+    .jumbotron .btn-primary:hover {
+        background: #BFE2EE
+    }
+    .jumbotron p {
+        color: #BFE2EE;
+        margin: auto
+    }
+    .navbar+.jumbotron {
+        margin-top: -20px
+    }
+    .jumbotron, .lang-logo {
+        display: block;
+        background: #62A9FF;
+        margin: auto;
+        border: 2px solid #BFE2EE
+    }
+    .jumbotron .lang-logo img {
+        max-width: 100%
+    }
+  </style>-->
+
+  <style type="text/css">
+    body{
+	  margin:0;
+	  padding: 0;
+	  font-family: verdana, sans-serif;
+	  background-color: #FFFFFF;
+    }
+
+    nav{
+	  width:100%;
+	  height: 80px;
+	  background-color: #029EFF;
+	  padding: 5px 0px;
+    }
+
+    nav ul{
+	  float:left;
+	  text-align: center;
+    }
+
+    ul li{
+	  list-style-type:none;
+	  display:inline-block;
+	  padding:12px;
+	  border-left: 1px solid #fff;
+	  float:center;
+    }
+
+    ul li a{
+      text-decoration: none;
+	  font-size: 18px;
+	  padding: 12px;
+	  color: #fff;
+    }
+
+    i{
+	  margin-right: 8px;
+    }
+
+    ul li a:hover{
+      color: #000101;
+	  font-weight: bold;
+    }
+
+    ul li.active a{
+	  background-color: #ffff;
+	  color:black;
+    }
+  </style>
+</head>
+<body>
+<nav>
+  <div class="container">
+    <ul>
+      <li class="active">
+        <a href="/"><span class="glyphicon glyphicon-home" /> Home</a>
+      </li>
+      <li><a href="create/"><i class="fa fa-plus" aria-hidden="true"></i>Create</a></li>
+      <li><a href="create/"><i class="fa fa-map" aria-hidden="true"></i>Map</a></li>
+      <li><a href="create/"><i class="fa fa-bell" aria-hidden="true"></i>Notifications</a></li>
+
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+      <li class="navbar-right">
+        <a href="signin.html"><i class="fa fa-user" aria-hidden="true"></i>Sign In</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<br />
+<br />
+
+{% block content %}{% endblock %}
+
+</body>
+</html>
