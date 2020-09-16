@@ -28,6 +28,10 @@ def map(request):
 def signin(request):
     return render(request, "signin.html")
 
+def create_user(request):
+    #try:
+    return render(request, "edituser.html")
+
 def edituser(request):
     return render(request, "edituser.html")
 

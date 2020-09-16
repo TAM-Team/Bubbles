@@ -1,7 +1,7 @@
 from django.contrib.auth.models import AnonymousUser, User
 from django.test import TestCase, RequestFactory
 
-from .views import index
+from .views import *
 
 
 class SimpleTest(TestCase):
@@ -17,3 +17,14 @@ class SimpleTest(TestCase):
         # Test my_view() as if it were deployed at /customer/details
         response = index(request)
         self.assertEqual(response.status_code, 200)
+
+    def test_create(self):
+        request = self.factory.get("/create/")
+        request.user = AnonymousUser()
+
+        response = create(request)
+        self.assertEqual(response.status_code, 200)
+
+#class UserTest(TestCase):
+ #   def
+
