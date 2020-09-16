@@ -18,11 +18,12 @@ class User(models.Model):
 
 
 class Post(models.Model):
+    post_ID = models.AutoField()
     post_title = models.TextField("Post Title")
     location = models.TextField("Location")
     description = models.TextField("Description")
     help_status = models.TextField("Help status")
 
     def __str__(self):
-        return self.post_title
+        return self.post_ID+self.post_title
 
