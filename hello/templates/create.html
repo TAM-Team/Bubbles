@@ -1,15 +1,40 @@
 {% extends "base.html" %}
-{% load static %}
 {% block content %}
 
 	<div class="container">
-		<form autocomplete="on">
 			<label><span class="required">*</span></label>
-						<select>
-							<option>Post</option>
-							<option>Event</option>
+						<select id="postorevent" onchange="swapVisibile(this)">
+							<option value="post">Post</option>
+							<option value="event">Event</option>
 						</select><br><br>
-			<label>Post/Event Title<span class="required">*</span></label>
+
+			<div id="postdiv">
+				<form autocomplete="on">
+			<label>Post Title<span class="required">*</span></label>
+				<input type="text" required><br><br>
+
+			<label> Start Date<span class="required">*</span></label>
+				<input type="date" id="strtDatepost" required><br><br>
+			<label> End Date<span class="required">*</span></label>
+				<input type="date" id="endDatepost" required><br><br>
+			<label> Start Time<span class="required">*</span></label>
+				<input type="time" id="strtTimepost" required><br><br>
+			<label> End Time<span class="required">*</span></label>
+				<input type="time" id="endTimepost" required><br><br>
+			<label> Attachment</label>
+				<input type="file" id="myfilepost"><br><br>
+				<label>Description<span></span></span></label><br>
+						<textarea rows="5" cols="50">Type Here</textarea>
+		<br><br><span>*Required fields</span><br><br>
+		<input type="reset" name="cancel" value="Cancel">
+		<input type="submit" name="Submit" value="Confirm"></form>
+				</div>
+
+
+
+			<div id="eventdiv" style="display:none">
+				<form autocomplete="on">
+			<label>Event Title<span class="required">*</span></label>
 				<input type="text" required><br><br>
 			<label>Location<span class="required">*</span></label>
 				<input type="text" required><br><br>
@@ -27,8 +52,22 @@
 						<textarea rows="5" cols="50">Type Here</textarea>
 		<br><br><span>*Required fields</span><br><br>
 		<input type="reset" name="cancel" value="Cancel">
-		<input type="submit" name="Submit" value="Confirm">
-		</form>
+		<input type="submit" name="Submit" value="Confirm"></form>
+				</div>
 	</div>
-
+<script>
+	const postdiv = document.getElementById("postdiv");
+	const eventdiv = document.getElementById("eventdiv");
+	function swapVisibile(value){
+		x = value.selectedIndex;
+		if (x = 0){
+			postdiv.style.display = 'block';
+			eventdiv.style.display = 'none';
+		}
+		else if (x = 1){
+			postdiv.style.display = 'none';
+			eventdiv.style.display = 'block';
+		}
+	}
+</script>
 {% endblock %}
