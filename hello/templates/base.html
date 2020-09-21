@@ -2,8 +2,9 @@
 <html>
 <head>
 <title>Bubbles</title>
+  <script  src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
   <link rel="stylesheet" type="text/css" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" />
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
   <script type="text/javascript" src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
   <!-- <style type="text/css">
     .jumbotron {
@@ -85,6 +86,32 @@
 	  color:black;
     }
   </style>
+  <script>
+    // Login to signup form swap
+    $(document).ready(function(){
+		$(".login-form").hide();
+		$(".login").css("background","none");
+
+		$(".login").click(function(){
+			$(".signup-form").hide();
+			$(".login-form").show();
+			$(".signup").css("background", "none");
+			$(".login").css("background", "#e9eaea");
+		});
+
+
+		$(".signup").click(function(){
+			$(".signup-form").show();
+			$(".login-form").hide();
+			$(".signup").css("background","#e9eaea");
+			$(".login").css("background","none");
+		});
+		$(".btn").click(function(){
+			$(".input").val("");
+		})
+
+	});
+  </script>
 </head>
 <body>
 <nav>
