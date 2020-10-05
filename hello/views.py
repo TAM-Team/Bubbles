@@ -1,12 +1,18 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from django.template import loader
 
-from .models import Greeting
+from .models import Greeting, Post
+
 
 # Create your views here.
 def index(request):
-    # return HttpResponse('Hello from Python!')
-    return render(request, "index.html")
+    latest_post_list = Post.objects.order_by('-created_date')[:5]
+    template = loader.get_template('index.html')
+    context = {
+        'latest_post_list': latest_post_list,
+    }
+    return HttpResponse(template.render(context, request))
 
 
 def db(request):
@@ -24,6 +30,8 @@ def create(request):
 def map(request):
     return render(request, "map.html")
 
+def post_detail(request, post_id):
+    return HttpResponse("Post %s." % post_id)
 
 def signin(request):
     return render(request, "signin.html")

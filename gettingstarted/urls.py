@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path, include
 
 from django.contrib import admin
 
@@ -21,5 +21,8 @@ urlpatterns = [
     path("create/", hello.views.create, name="create"),
     path("edituser/", hello.views.edituser, name="edituser"),
     path("map/", hello.views.map, name="map"),
-    path("signin/", hello.views.signin, name="signin")
+    path("account/", include('django.contrib.auth.urls'), name="account"),
+    path("signin/", hello.views.signin, name="signin"),
+    # ex: /post/5/
+    path('post/<int:question_id>/', hello.views.post_detail, name='post_detail'),
 ]
