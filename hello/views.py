@@ -7,14 +7,11 @@ from .models import Greeting, Post
 
 # Create your views here.
 def index(request):
-    latest_post_list = get_list_or_404(Post, Post.was_created_recently())
+    #latest_post_list = get_list_or_404(Post, Post.was_created_recently())
 
 
     template = loader.get_template('index.html')
-    context = {
-        'latest_post_list': latest_post_list,
-    }
-    return HttpResponse(template.render(context, request))
+    return HttpResponse(template)
 
 
 def home(request):
