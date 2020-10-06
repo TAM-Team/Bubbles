@@ -1,31 +1,24 @@
+"""visualroll URL Configuration
+
+The `urlpatterns` list routes URLs to views. For more information please see:
+    https://docs.djangoproject.com/en/3.1/topics/http/urls/
+Examples:
+Function views
+    1. Add an import:  from my_app import views
+    2. Add a URL to urlpatterns:  path('', views.home, name='home')
+Class-based views
+    1. Add an import:  from other_app.views import Home
+    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
+Including another URLconf
+    1. Import the include() function: from django.urls import include, path
+    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
+"""
+from django.contrib import admin
 from django.urls import path, include
 
-from django.contrib import admin
-
-admin.autodiscover()
-
-import hello.views
-
-# To add a new path, first import the app:
-# import blog
-#
-# Then add the new path:
-# path('blog/', blog.urls, name="blog")
-#
-# Learn more here: https://docs.djangoproject.com/en/2.1/topics/http/urls/
-
-
-app_name = 'hello'
-
 urlpatterns = [
-    path(r"", hello.views.index, name="index"),
-    path(r"db/", hello.views.db, name="db"),
-    path(r"admin/", admin.site.urls),
-    path(r"create/", hello.views.create, name="create"),
-    path(r"edituser/", hello.views.edituser, name="edituser"),
-    path(r"map/", hello.views.map, name="map"),
-    path(r"account/", include('django.contrib.auth.urls'), name="account"),
-    path(r"account/login", include('django.contrib.auth.urls'), name="login"),
-    # ex: /post/5/
-    path(r'post/<int:question_id>/', hello.views.post_detail, name='post_detail'),
+    path('', include('hello.urls'), name='home'), # To refer to this in template use: {% url 'home' %}  or  in views use: return redirect('home')
+
+    path('admin/', admin.site.urls),
 ]
+
