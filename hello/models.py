@@ -42,8 +42,8 @@ class Post(models.Model):
     def __str__(self):
         return self.post_title
 
-    # def was_created_recently(self):
-    #     return self.created_date >= timezone.now() - datetime.timedelta(days=7)
+    def was_created_recently(self):
+        return self.created_date >= timezone.now() - datetime.timedelta(days=7)
     def get_absolute_url(self):
         return '/%s/' % self.name
 
