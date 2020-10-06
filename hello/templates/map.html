@@ -1,19 +1,13 @@
 {% extends "base.html" %}
 {% load static %}
 {% block content %}
+<iframe
+  width="100%"
+  height="100%"
+  frameborder="0" style="border:0"
+  center=36.8809,174.7076
+  src="https://www.google.com/maps/embed/v1/place?key=AIzaSyDZ2H-4oqs0b1pBNXtwydP-ne7BF6OX8DI&q=unitec+mt+albert" allowfullscreen>
+</iframe>
 
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDZ2H-4oqs0b1pBNXtwydP-ne7BF6OX8DI&callback=initMap&libraries=&v=weekly" defer></script>
-	<div id="map" style="height: 100%;width:100%;"></div>
-
-<script>
-let map;
-
-function initMap() {
-  map = new google.maps.Map(document.getElementById("map"), {
-    center: { lat: -34.397, lng: 150.644 },
-    zoom: 8,
-  });
-}
-</script>
 
 {% endblock %}
