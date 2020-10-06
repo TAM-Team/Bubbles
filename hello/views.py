@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_list_or_404
 from django.http import HttpResponse
 from django.template import loader
 
@@ -7,7 +7,9 @@ from .models import Greeting, Post
 
 # Create your views here.
 def index(request):
-    latest_post_list = Post.objects.order_by('-created_date')[:5]
+    latest_post_list = get_list_or_404(Post, Post.was_created_recently())
+
+
     template = loader.get_template('index.html')
     context = {
         'latest_post_list': latest_post_list,
