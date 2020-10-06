@@ -14,8 +14,11 @@ HELP_STATUS_CHOICES = [
 # Create your models here.
 class Greeting(models.Model):
     when = models.DateTimeField("date created", auto_now_add=True)
+    def get_absolute_url(self):
+        return '/%s/' % self.name
 
-class Addres(models.Model):
+
+class Address(models.Model):
     address = models.TextField("Address")
     suburb = models.TextField("Suburb")
     city = models.TextField("City")
@@ -24,6 +27,9 @@ class Addres(models.Model):
     postcode = models.TextField("Postcode")
     def __str__(self):
         return self.address + "\n" + self.suburb
+    def get_absolute_url(self):
+        return '/%s/' % self.name
+
 
 
 class Post(models.Model):
@@ -36,8 +42,11 @@ class Post(models.Model):
     def __str__(self):
         return self.post_title
 
-    def was_created_recently(self):
-        return self.created_date >= timezone.now() - datetime.timedelta(days=7)
+    # def was_created_recently(self):
+    #     return self.created_date >= timezone.now() - datetime.timedelta(days=7)
+    def get_absolute_url(self):
+        return '/%s/' % self.name
+
 
 class Event(models.Model):
     event_title = models.TextField("Event Title")
@@ -51,6 +60,8 @@ class Event(models.Model):
     #organiser = models.ForeignKey(User, on_delete=models.CASCADE)
     def __str__(self):
         return self.event_title
+    def get_absolute_url(self):
+        return '/%s/' % self.name
 
 
 # class UserForm(ModelForm):

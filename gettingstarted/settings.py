@@ -57,7 +57,7 @@ ROOT_URLCONF = "gettingstarted.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        'DIRS': [str(BASE_DIR + ('templates'))],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -116,4 +116,6 @@ USE_TZ = True
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = "/static/"
 MEDIA_ROOT = '/i/'
+LOGIN_REDIRECT_URL = '/home/'
 django_heroku.settings(locals())
+

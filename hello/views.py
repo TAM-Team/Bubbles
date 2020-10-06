@@ -15,6 +15,9 @@ def index(request):
     return HttpResponse(template.render(context, request))
 
 
+def home(request):
+    HttpResponse("home.html")
+
 def db(request):
 
     greeting = Greeting()
@@ -32,12 +35,4 @@ def map(request):
 
 def post_detail(request, post_id):
     return HttpResponse("Post %s." % post_id)
-
-
-def create_user(request):
-    #try:
-    return render(request, "edituser.html")
-
-def edituser(request):
-    return render(request, "edituser.html")
 
