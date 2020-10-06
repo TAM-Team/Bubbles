@@ -18,11 +18,10 @@ from django.contrib import admin
 from django.urls import path, include
 from django.contrib.auth import views as auth_views
 
-app_name = 'gettingstarted'
+#app_name = 'gettingstarted'
 
 urlpatterns = [
-    path('', include('hello.urls'), name='home'), # To refer to this in template use: {% url 'home' %}  or  in views use: return redirect('home')
-
+    path('', include('hello.urls'), name='index'), # To refer to this in template use: {% url 'index' %}  or  in views use: return redirect('index')
     path('admin/', admin.site.urls),
 ]
 

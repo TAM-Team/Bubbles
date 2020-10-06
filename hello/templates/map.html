@@ -2,10 +2,7 @@
 {% load static %}
 {% block content %}
 
-    <script
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDZ2H-4oqs0b1pBNXtwydP-ne7BF6OX8DI&callback=initMap&libraries=&v=weekly"
-      defer
-    ></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDZ2H-4oqs0b1pBNXtwydP-ne7BF6OX8DI&callback=initMap&libraries=&v=weekly" defer></script>
 	<div id="map" style="height: 100%;width:100%;"></div>
 
 <script>
@@ -18,8 +15,5 @@ function initMap() {
   });
 }
 </script>
-
-
-</div>
 
 {% endblock %}

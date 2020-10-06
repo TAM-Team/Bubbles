@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_list_or_404
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseNotFound, Http404
 from django.template import loader
 
 from .models import Greeting, Post
@@ -7,21 +7,16 @@ from .models import Greeting, Post
 
 # Create your views here.
 def index(request):
-    #latest_post_list = get_list_or_404(Post, Post.was_created_recently())
-    template = loader.get_template('index.html')
-    return HttpResponse(template)
+    return render(request, "index.html")
 
 
 def home(request):
-    HttpResponse("home.html")
+    return render(request, "home.html")
 
 def db(request):
-
     greeting = Greeting()
     greeting.save()
-
     greetings = Greeting.objects.all()
-
     return render(request, "db.html", {"greetings": greetings})
 
 def create(request):

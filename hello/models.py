@@ -38,7 +38,6 @@ class Post(models.Model):
     help_status = models.TextField(choices=HELP_STATUS_CHOICES)
     #poster = models.ForeignKey(User, on_delete=models.CASCADE)
     created_date = models.DateTimeField("Created Date", default=datetime.datetime.now, blank=True)
-
     def __str__(self):
         return self.post_title
 
