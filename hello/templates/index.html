@@ -23,15 +23,6 @@
         Unlike other applications it is user friendly, the activities and chat can be limited to people nearby and all the functions are in one place.</p>
     </div>
 
-    {% if latest_post_list %}
-    <ul>
-    {% for post in latest_post_list %}
-        <li><a href="/post/{{ post.id }}/">{{ post.post_title }}</a></li>
-    {% endfor %}
-    </ul>
-    {% else %}
-    <p>No posts are available.</p>
-    {% endif %}
   </div>
 </div>
 {% endblock %}
