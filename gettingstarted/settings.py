@@ -70,8 +70,8 @@ TEMPLATES = [
     }
 ]
 
-WSGI_APPLICATION = "gettingstarted.wsgi.application"
-
+#WSGI_APPLICATION = 'gettingstarted.wsgi.application'
+ASGI_APPLICATION = 'gettingstarted.asgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
@@ -115,5 +115,5 @@ USE_TZ = True
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = "/static/"
-
+MEDIA_ROOT = '/i/'
 django_heroku.settings(locals())

@@ -14,15 +14,18 @@ import hello.views
 #
 # Learn more here: https://docs.djangoproject.com/en/2.1/topics/http/urls/
 
+
+app_name = 'hello'
+
 urlpatterns = [
-    path("", hello.views.index, name="index"),
-    path("db/", hello.views.db, name="db"),
-    path("admin/", admin.site.urls),
-    path("create/", hello.views.create, name="create"),
-    path("edituser/", hello.views.edituser, name="edituser"),
-    path("map/", hello.views.map, name="map"),
-    path("account/", include('django.contrib.auth.urls'), name="account"),
-    path("signin/", hello.views.signin, name="signin"),
+    path(r"", hello.views.index, name="index"),
+    path(r"db/", hello.views.db, name="db"),
+    path(r"admin/", admin.site.urls),
+    path(r"create/", hello.views.create, name="create"),
+    path(r"edituser/", hello.views.edituser, name="edituser"),
+    path(r"map/", hello.views.map, name="map"),
+    path(r"account/", include('django.contrib.auth.urls'), name="account"),
+    path(r"account/login", include('django.contrib.auth.urls'), name="login"),
     # ex: /post/5/
-    path('post/<int:question_id>/', hello.views.post_detail, name='post_detail'),
+    path(r'post/<int:question_id>/', hello.views.post_detail, name='post_detail'),
 ]

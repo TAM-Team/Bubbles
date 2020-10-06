@@ -33,8 +33,6 @@ def map(request):
 def post_detail(request, post_id):
     return HttpResponse("Post %s." % post_id)
 
-def signin(request):
-    return render(request, "signin.html")
 
 def create_user(request):
     #try:

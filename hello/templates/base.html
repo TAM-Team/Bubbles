@@ -2,10 +2,10 @@
 <html>
 <head>
 <title>Bubbles</title>
-  <script  src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!--  <script  src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>-->
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
   <link rel="stylesheet" type="text/css" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" />
-  <script type="text/javascript" src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<!--  <script type="text/javascript" src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>-->
   <!-- <style type="text/css">
     .jumbotron {
         background: #1591CA;
@@ -86,7 +86,8 @@
 	  color:black;
     }
   </style>
-  <script>
+  <!-- ORIGINAL signup/login JS, found easier more efficient way to do this though.
+
     // Login to signup form swap
     $(document).ready(function(){
 		$(".login-form").hide();
@@ -110,24 +111,23 @@
 			$(".input").val("");
 		})
 
-	});
-  </script>
+	});-->
 </head>
 <body>
 <nav>
   <div class="container">
     <ul>
       <li class="active">
-        <a href="/"><span class="glyphicon glyphicon-home" /> Home</a>
+        <a href="{% url 'hello:index' %}"><span class="glyphicon glyphicon-home" /> Home</a>
       </li>
-      <li><a href="create/"><i class="fa fa-plus" aria-hidden="true"></i>Create</a></li>
-      <li><a href="create/"><i class="fa fa-map" aria-hidden="true"></i>Map</a></li>
-      <li><a href="create/"><i class="fa fa-bell" aria-hidden="true"></i>Notifications</a></li>
+      <li><a href="{% url 'hello:create' %}"><i class="fa fa-plus" aria-hidden="true"></i>Create</a></li>
+      <li><a href="{% url 'hello:map' %}"><i class="fa fa-map" aria-hidden="true"></i>Map</a></li>
+      <li><a href="{% url 'hello:create' %}"><i class="fa fa-bell" aria-hidden="true"></i>Notifications</a></li>
 
     </ul>
     <ul class="nav navbar-nav navbar-right">
       <li class="navbar-right">
-        <a href="signin/"><i class="fa fa-user" aria-hidden="true"></i>Sign In</a>
+        <a href="{% url 'hello:login' %}"><i class="fa fa-user" aria-hidden="true"></i>Sign In</a>
       </li>
     </ul>
   </div>
