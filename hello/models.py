@@ -1,5 +1,6 @@
 import datetime
 
+from django.contrib.auth.models import User
 from django.db import models
 from django.utils import timezone
 from django.forms import ModelForm
@@ -10,6 +11,11 @@ HELP_STATUS_CHOICES = [
     ('Being', 'Being helped'),
 ]
 
+
+class User_Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    email = models.EmailField("Email")
+    profile_picture = models.ImageField("Profile Picture")
 
 # Create your models here.
 class Greeting(models.Model):
@@ -36,7 +42,7 @@ class Post(models.Model):
     post_title = models.CharField("Post Title", max_length=255)
     description = models.TextField("Description")
     help_status = models.TextField(choices=HELP_STATUS_CHOICES)
-    #poster = models.ForeignKey(User, on_delete=models.CASCADE)
+    poster_id = models.ForeignKey(User, on_delete=models.PROTECT, default=User.objects.first())
     created_date = models.DateTimeField("Created Date", default=datetime.datetime.now, blank=True)
     def __str__(self):
         return self.post_title
@@ -45,6 +51,12 @@ class Post(models.Model):
         return self.created_date >= timezone.now() - datetime.timedelta(days=7)
     def get_absolute_url(self):
         return '/%s/' % self.name
+    class Meta:
+        ordering = ['created_date']
+
+class Helper(models.Model):
+    post = models.ForeignKey(Post, on_delete=models.PROTECT)
+    helper = models.ForeignKey(User, on_delete=models.PROTECT)
 
 
 class Event(models.Model):
@@ -56,11 +68,18 @@ class Event(models.Model):
     start_time = models.DateTimeField("Start Time")
     end_time = models.DateTimeField("End Time")
     attachment = models.TextField("Attach File")
-    #organiser = models.ForeignKey(User, on_delete=models.CASCADE)
+    organiser = models.ForeignKey(User, on_delete=models.PROTECT, default=User.objects.first())
     def __str__(self):
         return self.event_title
     def get_absolute_url(self):
         return '/%s/' % self.name
+
+
+class Assisstant(models.Model):
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    helper = models.ForeignKey(User, on_delete=models.CASCADE, default=User.objects.first())
+    def __str__(self):
+        return self.helper
 
 
 # class UserForm(ModelForm):
