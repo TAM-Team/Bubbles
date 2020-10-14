@@ -1,9 +1,16 @@
 import datetime
 
-from django.contrib.auth.models import User
-from django.db import models
+from django.apps import apps
+from django.contrib.auth.base_user import BaseUserManager
+from django.contrib.auth.hashers import make_password
 from django.utils import timezone
 from django.forms import ModelForm
+from django.db import models
+#from django.contrib.auth.models import User
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+from django.contrib.auth.models import AbstractUser
+
 
 HELP_STATUS_CHOICES = [
     ('Needed', 'Needs Help'),
@@ -11,18 +18,60 @@ HELP_STATUS_CHOICES = [
     ('Being', 'Being helped'),
 ]
 
+class User(AbstractUser):
+    profile_picture = models.ImageField("Profile Picture", null=True, blank=True)
 
-class User_Profile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    email = models.EmailField("Email")
-    profile_picture = models.ImageField("Profile Picture")
+    #identifier = models.CharField(max_length=40, unique=True)
+    #...
+    #USERNAME_FIELD = AbstractUser.get_email_field_name()
+
+
+
+
+
+
+class UserManager(BaseUserManager):
+    use_in_migrations = True
+
+    def _create_user(self, username, email, password, **extra_fields):
+        """
+        Create and save a user with the given username, email, and password.
+        """
+        if not username:
+            raise ValueError('The given username must be set')
+        email = self.normalize_email(email)
+        GlobalUserModel = apps.get_model(self.model._meta.app_label, self.model._meta.object_name)
+        username = GlobalUserModel.normalize_username(username)
+        user = self.model(username=username, email=email, **extra_fields)
+        user.password = make_password(password)
+        user.save(using=self._db)
+        return user
+
+    def create_user(self, username, email=None, password=None, **extra_fields):
+        extra_fields.setdefault('is_staff', False)
+        extra_fields.setdefault('is_superuser', False)
+        return self._create_user(username, email, password, **extra_fields)
+
+    def create_superuser(self, username, email=None, password=None, **extra_fields):
+        extra_fields.setdefault('is_staff', True)
+        extra_fields.setdefault('is_superuser', True)
+
+        if extra_fields.get('is_staff') is not True:
+            raise ValueError('Superuser must have is_staff=True.')
+        if extra_fields.get('is_superuser') is not True:
+            raise ValueError('Superuser must have is_superuser=True.')
+
+        return self._create_user(username, email, password, **extra_fields)
+
+
+
+
 
 # Create your models here.
 class Greeting(models.Model):
     when = models.DateTimeField("date created", auto_now_add=True)
     def get_absolute_url(self):
         return '/%s/' % self.name
-
 
 class Address(models.Model):
     address = models.TextField("Address")
@@ -42,7 +91,7 @@ class Post(models.Model):
     post_title = models.CharField("Post Title", max_length=255)
     description = models.TextField("Description")
     help_status = models.TextField(choices=HELP_STATUS_CHOICES)
-    poster_id = models.ForeignKey(User, on_delete=models.PROTECT, default=User.objects.first())
+    poster = models.ForeignKey(User, on_delete=models.PROTECT, null=True)
     created_date = models.DateTimeField("Created Date", default=datetime.datetime.now, blank=True)
     def __str__(self):
         return self.post_title
@@ -55,8 +104,8 @@ class Post(models.Model):
         ordering = ['created_date']
 
 class Helper(models.Model):
-    post = models.ForeignKey(Post, on_delete=models.PROTECT)
-    helper = models.ForeignKey(User, on_delete=models.PROTECT)
+    post = models.ForeignKey(Post, on_delete=models.PROTECT, null=True)
+    helper = models.ForeignKey(User, on_delete=models.PROTECT, null=True)
 
 
 class Event(models.Model):
@@ -68,7 +117,7 @@ class Event(models.Model):
     start_time = models.DateTimeField("Start Time")
     end_time = models.DateTimeField("End Time")
     attachment = models.TextField("Attach File")
-    organiser = models.ForeignKey(User, on_delete=models.PROTECT, default=User.objects.first())
+    organiser = models.ForeignKey(User, on_delete=models.PROTECT, default=User.objects.first(), null=True)
     def __str__(self):
         return self.event_title
     def get_absolute_url(self):
@@ -76,10 +125,10 @@ class Event(models.Model):
 
 
 class Assisstant(models.Model):
-    post = models.ForeignKey(Post, on_delete=models.CASCADE)
-    helper = models.ForeignKey(User, on_delete=models.CASCADE, default=User.objects.first())
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, null=True)
+    helper = models.ForeignKey(User, on_delete=models.CASCADE, default=User.objects.first(), null=True)
     def __str__(self):
-        return self.helper
+        return self.post
 
 
 # class UserForm(ModelForm):

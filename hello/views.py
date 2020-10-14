@@ -1,3 +1,6 @@
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from django.db import transaction
 from django.shortcuts import render, get_list_or_404, redirect
 from django.http import HttpResponse, HttpResponseNotFound, Http404
 from django.template import loader
@@ -25,6 +28,27 @@ def register(response):
 
     return render(response, "registration/register.html", {"form": form})
 
+# @login_required
+# @transaction.atomic
+# def update_profile(request):
+#     if request.method == 'POST':
+#         user_form = RegisterForm(request.POST, instance=request.user)
+#         profile_form = RegisterForm(request.POST, instance=request.user.profile)
+#         if user_form.is_valid() and profile_form.is_valid():
+#             user_form.save()
+#             profile_form.save()
+#             messages.success(request, ('Your profile was successfully updated!'))
+#             return redirect('settings:profile')
+#         else:
+#             messages.error(request, ('Please correct the error below.'))
+#     else:
+#         user_form = RegisterForm(instance=request.user)
+#         profile_form = ProfileForm(instance=request.user.profile)
+#     return render(request, 'profiles/profile.html', {
+#         'user_form': user_form,
+#         'profile_form': profile_form
+#     })
+
 
 def home(request):
     return render(request, "home.html")
@@ -33,7 +57,7 @@ def db(request):
     greeting = Greeting()
     greeting.save()
     greetings = Greeting.objects.all()
-    return render(request, "db.html", {"greetings": greetings})
+    return render(request, "db.sqlite3.html", {"greetings": greetings})
 
 def create(request):
     if request.method == "POST":
@@ -45,7 +69,7 @@ def create(request):
     else:
         form = RegisterForm()
 
-    return render("registration/register.html", {"form": form})
+    return render("create.html", {"form": form})
     #return render(request, "create.html")
 
 def map(request):
