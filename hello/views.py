@@ -8,7 +8,8 @@ from django.views import generic
 
 from .forms import RegisterForm
 
-from .models import Greeting, Post
+from .models import Greeting, Post, User
+
 
 
 # Created views
@@ -27,7 +28,6 @@ def register(response):
         form = RegisterForm()
 
     return render(response, "registration/register.html", {"form": form})
-
 # @login_required
 # @transaction.atomic
 # def update_profile(request):
@@ -60,23 +60,26 @@ def db(request):
     return render(request, "db.sqlite3.html", {"greetings": greetings})
 
 def create(request):
-    if request.method == "POST":
-        form = RegisterForm(request.POST)
-        if form.is_valid():
-            form.save()
-
-        return redirect("/home")
-    else:
-        form = RegisterForm()
-
-    return render("create.html", {"form": form})
-    #return render(request, "create.html")
+    # if request.method == "POST":
+    #     form = CreatePost(request.POST)
+    #     if form.is_valid():
+    #         form.save()
+    #
+    #     return redirect("/home")
+    # else:
+    #     form = RegisterForm()
+    #
+    # return render("create.html", {"form": form})
+    return render(request, "create.html")
 
 def map(request):
     return render(request, "map.html")
 
 def post_detail(request, post_id):
     return HttpResponse("Post %s." % post_id)
+
+def event_detail(request, event_id):
+    return HttpResponse("Event %s." % event_id)
 
 class HomeView(generic.ListView):
     template_name = 'home.html'

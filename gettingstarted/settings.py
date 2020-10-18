@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "crispy_forms",
+    'rest_framework',
     "hello",
     "gettingstarted"
 ]
@@ -88,6 +89,12 @@ DATABASES = {
 # Password validation
 # https://docs.djangoproject.com/en/2.0/ref/settings/#auth-password-validators
 AUTH_USER_MODEL = 'hello.User'
+REST_AUTH_SERIALIZERS = {
+    'USER_DETAILS_SERIALIZER': 'hello.serializers.UserSerializer',
+}
+REST_AUTH_REGISTER_SERIALIZERS = {
+    'REGISTER_SERIALIZER': 'hello.serializers.CustomRegisterSerializer',
+}
 
 AUTH_PASSWORD_VALIDATORS = [
     {

@@ -14,4 +14,5 @@ urlpatterns = [
     path(r"map/", views.map, name="map"),
     # ex: /post/5/
     path(r'post/<int:question_id>/', views.post_detail, name='post_detail'),
+    path(r'event/<int:question_id>/', views.event_detail, name='event_detail'),
 ]
