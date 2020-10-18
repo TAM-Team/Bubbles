@@ -1,20 +1,28 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block content %}
+{% block leftnav %}
+      <li><a href="{% url 'hello:create' %}"><i class="fa fa-plus" aria-hidden="true"></i>Create</a></li>
+      <li><a href="{% url 'hello:map' %}"><i class="fa fa-map" aria-hidden="true"></i>Map</a></li>
+      <li><a href="{% url 'hello:create' %}"><i class="fa fa-bell" aria-hidden="true"></i>Notifications</a></li>
+{% endblock %}
+
+{% block rightnav %}
+    <ul class="nav navbar-nav navbar-right">
+      <li class="navbar-right">
+        <a href="{% url 'login' %}"><i class="fa fa-user" aria-hidden="true"></i>Sign In</a>
+      </li>
+      <li class="navbar-right">
+        <a href="{% url 'hello:register' %}"><i class="fa fa-user" aria-hidden="true"></i>Register</a>
+      </li>
+    </ul>
+{% endblock %}
+
+{% block body %}
 
 <div class="jumbotron">
   <div class="container">
-
-    {% if latest_post_list %}
-    <ul>
-    {% for post in latest_post_list %}
-        <li><a href="/post/{{ post.id }}/">{{ post.post_title }}</a></li>
-    {% endfor %}
-    </ul>
-    {% else %}
-    <p>No posts are available.</p>
-    {% endif %}
+      {% block content %}{% endblock %}
   </div>
 </div>
 {% endblock %}

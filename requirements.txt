@@ -4,3 +4,4 @@ django-heroku
 djangorestframework
 pygments
 django-crispy-forms
+Pillow

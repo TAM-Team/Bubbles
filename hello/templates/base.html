@@ -121,25 +121,16 @@
       <li class="active">
         <a href="{% url 'hello:index' %}"><span class="glyphicon glyphicon-home" /> Home</a>
       </li>
-      <li><a href="{% url 'hello:create' %}"><i class="fa fa-plus" aria-hidden="true"></i>Create</a></li>
-      <li><a href="{% url 'hello:map' %}"><i class="fa fa-map" aria-hidden="true"></i>Map</a></li>
-      <li><a href="{% url 'hello:create' %}"><i class="fa fa-bell" aria-hidden="true"></i>Notifications</a></li>
+      {% block leftnav %}{% endblock %}
 
     </ul>
-    <ul class="nav navbar-nav navbar-right">
-      <li class="navbar-right">
-        <a href="{% url 'login' %}"><i class="fa fa-user" aria-hidden="true"></i>Sign In</a>
-      </li>
-      <li class="navbar-right">
-        <a href="{% url 'hello:register' %}"><i class="fa fa-user" aria-hidden="true"></i>Register</a>
-      </li>
-    </ul>
+    {% block rightnav %}{% endblock %}
   </div>
 </nav>
 
 <div class="jumbotron">
   <div class="container">
-{% block content %}{% endblock %}
+{% block body %}{% endblock %}
   </div>
 </div>
 
