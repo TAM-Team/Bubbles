@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 
-from hello.models import User
+from hello.models import User, Post
 
 
 class RegisterForm(UserCreationForm):
@@ -11,10 +11,15 @@ class RegisterForm(UserCreationForm):
         fields = ["profile_picture", "email", "first_name", "last_name", "password1", "password2"]
 
 
+class CustomUserChangeForm(forms.ModelForm):
+
+    class Meta:
+        model = User
+        fields = ('profile_picture', "email", "first_name", "last_name")
 
 
-# class ProfileForm(forms.ModelForm):
-#     class Meta:
-#         model = Profile
-#         fields = ('profile_picture',)
+class CreatePostForm(forms.ModelForm):
 
+    class Meta:
+        model = Post
+        fields = ('post_title', 'description', 'help_status', 'poster', 'created_date')

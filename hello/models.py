@@ -29,6 +29,8 @@ class User(AbstractUser):
     objects = CustomUserManager()
 
     profile_picture = models.ImageField(blank=True, null=True)
+    first_name = models.TextField()
+    last_name = models.TextField()
     class Meta:
         ordering = ['email']
 

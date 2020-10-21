@@ -9,10 +9,12 @@ urlpatterns = [
     path(r"", views.index, name="index"),
     path(r"home/", views.HomeView.as_view(), name="home"),
     path(r"register/", views.register, name="register"),
+    path(r"account/", views.edit_profile, name="account"),
     path(r"db.sqlite3/", views.db, name="db.sqlite3"),
-    path(r"create/", views.create, name="create"),
+    path(r"create/", views.create_post, name="create"),
     path(r"map/", views.map, name="map"),
     # ex: /post/5/
+    #edit_profile
     path(r'post/<int:question_id>/', views.post_detail, name='post_detail'),
     path(r'event/<int:question_id>/', views.event_detail, name='event_detail'),
 ]

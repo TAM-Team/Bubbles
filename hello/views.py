@@ -4,9 +4,10 @@ from django.db import transaction
 from django.shortcuts import render, get_list_or_404, redirect
 from django.http import HttpResponse, HttpResponseNotFound, Http404
 from django.template import loader
+from django.template.context_processors import csrf
 from django.views import generic
 
-from .forms import RegisterForm
+from .forms import RegisterForm, CustomUserChangeForm, CreatePostForm
 
 from .models import Greeting, Post, User
 
@@ -15,7 +16,7 @@ from .models import Greeting, Post, User
 # Created views
 
 def index(request):
-    return render(request, "index.html")
+    return render(request, "initial.html")
 
 def register(response):
     if response.method == "POST":
@@ -59,19 +60,6 @@ def db(request):
     greetings = Greeting.objects.all()
     return render(request, "db.sqlite3.html", {"greetings": greetings})
 
-def create(request):
-    # if request.method == "POST":
-    #     form = CreatePost(request.POST)
-    #     if form.is_valid():
-    #         form.save()
-    #
-    #     return redirect("/home")
-    # else:
-    #     form = RegisterForm()
-    #
-    # return render("create.html", {"form": form})
-    return render(request, "create.html")
-
 def map(request):
     return render(request, "map.html")
 
@@ -82,10 +70,39 @@ def event_detail(request, event_id):
     return HttpResponse("Event %s." % event_id)
 
 class HomeView(generic.ListView):
-    template_name = 'home.html'
+    template_name = 'posts.html'
     context_object_name = 'latest_post_list'
 
     def get_queryset(self):
         """Return the latest published posts."""
         return Post.objects.order_by('-created_date')
+
+@login_required
+def edit_profile(request):
+    if request.method == 'POST':
+        form = CustomUserChangeForm(request.POST, instance=request.user)
+        if form.is_valid():
+            form.save()
+            return redirect('registration/profile.html')
+    else:
+        form = CustomUserChangeForm(instance=request.user)
+    args = {}
+    args.update(csrf(request))
+    args['user_form'] = form
+    return render(request, 'registration/profile.html', args)
+
+@login_required
+def create_post(request):
+    if request.method == "POST":
+        form = CreatePostForm(request.POST)
+        form.poster = request.user
+        if form.is_valid():
+            form.save()
+            return redirect('home.html')
+    else:
+        form = CreatePostForm()
+    args = {}
+    args.update(csrf(request))
+    args['create_post_form'] = form
+    return render(request, 'create.html', args)
 
