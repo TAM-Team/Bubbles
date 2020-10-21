@@ -1,7 +1,19 @@
 {% extends "home.html" %}
 {% block content %}
 
+<p>Form starts here</p>
+<form method="post">
+  {% csrf_token %}
+  {{ create_post_form.as_p }}
+  {{ create_event_form.as_p }}
+  <button type="submit">Save changes</button>
+</form>
+<p>Form stops here</p>
+
+
 	<div class="container">
+
+
 			<label><span class="required">*</span></label>
 						<select id="postorevent" onchange="swapVisibile(this)">
 							<option value="post">Post</option>

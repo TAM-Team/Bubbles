@@ -2,6 +2,9 @@
 {% load static %}
 
 {% block leftnav %}
+    <li class="active">
+        <a href="{% url 'hello:home' %}"><span class="glyphicon glyphicon-home" /> Home</a>
+      </li>
       <li><a href="{% url 'hello:create' %}"><i class="fa fa-plus" aria-hidden="true"></i>Create</a></li>
       <li><a href="{% url 'hello:map' %}"><i class="fa fa-map" aria-hidden="true"></i>Map</a></li>
       <li><a href="{% url 'hello:create' %}"><i class="fa fa-bell" aria-hidden="true"></i>Notifications</a></li>
@@ -10,10 +13,10 @@
 {% block rightnav %}
     <ul class="nav navbar-nav navbar-right">
       <li class="navbar-right">
-        <a href="{% url 'login' %}"><i class="fa fa-user" aria-hidden="true"></i>Sign In</a>
+        <a href="{% url 'hello:account' %}"><i class="fa fa-user" aria-hidden="true"></i>Profile</a>
       </li>
       <li class="navbar-right">
-        <a href="{% url 'hello:register' %}"><i class="fa fa-user" aria-hidden="true"></i>Register</a>
+        <a href="{% url 'logout' %}"><i class="fa fa-user" aria-hidden="true"></i>Logout</a>
       </li>
     </ul>
 {% endblock %}

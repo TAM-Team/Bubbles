@@ -1,6 +1,10 @@
 {% extends "base.html" %}
 {% load static %}
-{% block leftnav %}{% endblock %}
+{% block leftnav %}
+    <li class="active">
+        <a href="{% url 'hello:index' %}"><span class="glyphicon glyphicon-home" /> Home</a>
+    </li>
+{% endblock %}
 
 {% block rightnav %}
     <ul class="nav navbar-nav navbar-right">
