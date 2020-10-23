@@ -8,6 +8,7 @@ app_name = 'hello'
 urlpatterns = [
     path(r"", views.index, name="index"),
     path(r"home/", views.HomeView.as_view(), name="home"),
+    path(r"db/", views.db, name="db"),
     path(r"register/", views.register, name="register"),
     path(r"account/", views.edit_profile, name="account"),
     path(r"db.sqlite3/", views.db, name="db.sqlite3"),

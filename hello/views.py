@@ -6,6 +6,7 @@ from django.http import HttpResponse, HttpResponseNotFound, Http404
 from django.template import loader
 from django.template.context_processors import csrf
 from django.views import generic
+import os
 
 from .forms import RegisterForm, CustomUserChangeForm, CreatePostForm
 
@@ -83,7 +84,7 @@ def edit_profile(request):
         form = CustomUserChangeForm(request.POST, instance=request.user)
         if form.is_valid():
             form.save()
-            return redirect('registration/profile.html')
+            return redirect('account')
     else:
         form = CustomUserChangeForm(instance=request.user)
     args = {}
@@ -98,7 +99,7 @@ def create_post(request):
         form.poster = request.user
         if form.is_valid():
             form.save()
-            return redirect('home.html')
+            return redirect('hello:home')
     else:
         form = CreatePostForm()
     args = {}
