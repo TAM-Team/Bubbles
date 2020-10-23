@@ -1,5 +1,5 @@
 {% extends "home.html" %}
-{% load staticfiles %}
+{% load static %}
 
 {% block content %}
   <div class="container">
@@ -13,7 +13,9 @@
 {% for greeting in greetings %}
     <li>{{ greeting.when }}</li>
 {% endfor %}
-
+{% for user in users %}
+    <li>{{ user.email }}</li>
+{% endfor %}
 </ul>
 
 </div>

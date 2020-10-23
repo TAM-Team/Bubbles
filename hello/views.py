@@ -59,7 +59,13 @@ def db(request):
     greeting = Greeting()
     greeting.save()
     greetings = Greeting.objects.all()
-    return render(request, "db.html", {"greetings": greetings})
+    users = User()
+    users.save()
+    users = User.objects.all()
+    return render(request, "db.html", {
+        "greetings": greetings,
+        "users": users
+    })
 
 def map(request):
     return render(request, "map.html")
