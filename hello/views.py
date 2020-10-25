@@ -7,6 +7,12 @@ from django.template import loader
 from django.template.context_processors import csrf
 from django.views import generic
 import os
+import pprint
+import pdb
+pp = pprint.PrettyPrinter(indent=4)
+
+
+from pygments import console
 
 from .forms import RegisterForm, CustomUserChangeForm, CreatePostForm
 
@@ -21,35 +27,14 @@ def index(request):
 
 def register(response):
     if response.method == "POST":
-        form = RegisterForm(response.POST)
+        form = RegisterForm(response.POST, response.FILES)
+
         if form.is_valid():
             form.save()
-
-        return redirect("/home")
+            return redirect("hello:home")
     else:
         form = RegisterForm()
-
     return render(response, "registration/register.html", {"form": form})
-# @login_required
-# @transaction.atomic
-# def update_profile(request):
-#     if request.method == 'POST':
-#         user_form = RegisterForm(request.POST, instance=request.user)
-#         profile_form = RegisterForm(request.POST, instance=request.user.profile)
-#         if user_form.is_valid() and profile_form.is_valid():
-#             user_form.save()
-#             profile_form.save()
-#             messages.success(request, ('Your profile was successfully updated!'))
-#             return redirect('settings:profile')
-#         else:
-#             messages.error(request, ('Please correct the error below.'))
-#     else:
-#         user_form = RegisterForm(instance=request.user)
-#         profile_form = ProfileForm(instance=request.user.profile)
-#     return render(request, 'profiles/profile.html', {
-#         'user_form': user_form,
-#         'profile_form': profile_form
-#     })
 
 
 def home(request):
@@ -90,7 +75,8 @@ def edit_profile(request):
         form = CustomUserChangeForm(request.POST, instance=request.user)
         if form.is_valid():
             form.save()
-            return redirect('account')
+            messages.success(request, "Thank you! You have successfully updated your account!")
+            return redirect('hello:account')
     else:
         form = CustomUserChangeForm(instance=request.user)
     args = {}
@@ -101,15 +87,16 @@ def edit_profile(request):
 @login_required
 def create_post(request):
     if request.method == "POST":
-        form = CreatePostForm(request.POST)
-        form.poster = request.user
-        if form.is_valid():
-            form.save()
+        postForm = CreatePostForm(request.POST)
+        postForm.poster = request.user
+        if postForm.is_valid():
+            postForm.save()
             return redirect('hello:home')
     else:
-        form = CreatePostForm()
+        postForm = CreatePostForm()
+        postForm.poster = request.user
     args = {}
     args.update(csrf(request))
-    args['create_post_form'] = form
+    args['create_post_form'] = postForm
     return render(request, 'create.html', args)
 

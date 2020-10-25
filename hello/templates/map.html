@@ -1,6 +1,20 @@
 {% extends "home.html" %}
 {% load static %}
 {% block content %}
+
+<script>
+    var onLoaded = function() {
+        var location_input = document.getElementById('address-field');
+        var autocomplete = new google.maps.places.Autocomplete(location_input);
+    }
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDZ2H-4oqs0b1pBNXtwydP-ne7BF6OX8DI&libraries=places&callback=onLoaded" async defer></script>
+<div class="search-container">
+    <form action="">
+      <input id="address-field" type="text" placeholder="Search.." name="search">
+      <button type="submit"><i class="fa fa-search"></i></button>
+    </form>
+  </div>
 <iframe
   width="100%"
   height="800px"
@@ -11,3 +25,4 @@
 
 
 {% endblock %}
+

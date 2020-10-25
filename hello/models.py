@@ -6,19 +6,19 @@ from django.contrib.auth.hashers import make_password
 from django.utils import timezone
 from django.forms import ModelForm
 from django.db import models
-#from django.contrib.auth.models import User
+# from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from .managers import CustomUserManager
 from django.contrib.auth.models import AbstractUser
 from django.utils.translation import ugettext_lazy as _
 
-
 HELP_STATUS_CHOICES = [
     ('Needed', 'Needs Help'),
     ('Not_Needed', 'Has been helped'),
     ('Being', 'Being helped'),
 ]
+
 
 class User(AbstractUser):
     username = None
@@ -28,15 +28,21 @@ class User(AbstractUser):
 
     objects = CustomUserManager()
 
-    profile_picture = models.ImageField(blank=True, null=True)
-    first_name = models.TextField()
-    last_name = models.TextField()
+    profile_picture = models.ImageField(blank=True, null=True, upload_to="i/")
+    first_name = models.CharField(max_length=255)
+    last_name = models.CharField(max_length=255)
+    address = models.CharField(max_length=1025, default="Mount Albert, Auckland, New Zealand")
+    # user_address = models.ForeignKey(Address, on_delete=models.PROTECT, null=True)
     class Meta:
         ordering = ['email']
 
     def __str__(self):
         return self.email
-
+    # def get_image(self):
+    #     if (self.profile_picture != null):
+    #         return self.profile_picture
+    #     else:
+    #         return "Error"
 
 
 # Create your models here.
@@ -44,19 +50,6 @@ class Greeting(models.Model):
     when = models.DateTimeField("date created", auto_now_add=True)
     def get_absolute_url(self):
         return '/%s/' % self.name
-
-class Address(models.Model):
-    address = models.TextField("Address")
-    suburb = models.TextField("Suburb")
-    city = models.TextField("City")
-    state = models.TextField("State", null=True, blank=True)
-    country = models.TextField("Country")
-    postcode = models.TextField("Postcode")
-    def __str__(self):
-        return self.address + "\n" + self.suburb
-    def get_absolute_url(self):
-        return '/%s/' % self.name
-
 
 
 class Post(models.Model):
@@ -70,10 +63,13 @@ class Post(models.Model):
 
     def was_created_recently(self):
         return self.created_date >= timezone.now() - datetime.timedelta(days=7)
+
     def get_absolute_url(self):
         return '/%s/' % self.name
+
     class Meta:
         ordering = ['created_date']
+
 
 class Helper(models.Model):
     post = models.ForeignKey(Post, on_delete=models.PROTECT, null=True)
@@ -90,8 +86,10 @@ class Event(models.Model):
     end_time = models.DateTimeField("End Time")
     attachment = models.TextField("Attach File")
     organiser = models.ForeignKey(User, on_delete=models.PROTECT, null=True)
+
     def __str__(self):
         return self.event_title
+
     def get_absolute_url(self):
         return '/%s/' % self.name
 
@@ -99,9 +97,9 @@ class Event(models.Model):
 class Assisstant(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE, null=True)
     helper = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+
     def __str__(self):
         return self.post
-
 
 # class UserForm(ModelForm):
 #     class Meta:

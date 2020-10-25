@@ -1,10 +1,12 @@
 import datetime
 
 from django.utils import timezone
-from django.contrib.auth.models import AnonymousUser, User
+from django.contrib.auth.models import AnonymousUser
 from django.test import TestCase, RequestFactory
-from .models import Address
+from .models import User
 from django.contrib.auth import get_user_model
+import django
+django.setup()
 
 from .views import *
 
@@ -20,8 +22,6 @@ class UsersManagersTests(TestCase):
         self.assertFalse(user.is_staff)
         self.assertFalse(user.is_superuser)
         try:
-            # username is None for the AbstractUser option
-            # username does not exist for the AbstractBaseUser option
             self.assertIsNone(user.username)
         except AttributeError:
             pass
@@ -53,26 +53,26 @@ class UsersManagersTests(TestCase):
 
 
 
-class SimpleTest(TestCase):
-    def setUp(self):
-        # Every test needs access to the request factory.
-        self.factory = RequestFactory()
-
-    def test_details(self):
-        # Create an instance of a GET request.
-        request = self.factory.get("/")
-        request.user = AnonymousUser()
-
-        # Test my_view() as if it were deployed at /customer/details
-        response = index(request)
-        self.assertEqual(response.status_code, 200)
-
-    def test_create(self):
-        request = self.factory.get("/create/")
-        request.user = AnonymousUser()
-
-        response = create_post(request)
-        self.assertEqual(response.status_code, 200)
+# class SimpleTest(TestCase):
+#     def setUp(self):
+#         # Every test needs access to the request factory.
+#         self.factory = RequestFactory()
+#
+#     def test_details(self):
+#         # Create an instance of a GET request.
+#         request = self.factory.get("/")
+#         request.user = AnonymousUser()
+#
+#         # Test my_view() as if it were deployed at /customer/details
+#         response = index(request)
+#         self.assertEqual(response.status_code, 200)
+#
+#     def test_create(self):
+#         request = self.factory.get("/create/")
+#         request.user = AnonymousUser()
+#
+#         response = create_post(request)
+#         self.assertEqual(response.status_code, 200)
 
 #class UserTest(TestCase):
  #   def
