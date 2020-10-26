@@ -1,14 +1,27 @@
 {% extends "home.html" %}
 {% load static %}
 
+
 {% block content %}
-    {% if latest_post_list %}
-    <ul>
-    {% for post in latest_post_list %}
-        <li><a href="/post/{{ post.id }}/">{{ post.post_title }}</a></li>
-    {% endfor %}
-    </ul>
-    {% else %}
-    <p>No posts are available.</p>
-    {% endif %}
+<div class="body-block">
+    <div class="block">
+        <div class="block-column col-left">
+            {% if latest_post_list %}
+            {% for post in latest_post_list %}
+                <div class="sub-block">
+                    <h3><a href="/post/{{ post.id }}/">{{ post.post_title }}</a></h3>
+                    <em>Created by {{ post.poster.get_name }} on {{ post.created_date }}</em>
+                    <p>{{ post.description }}</p>
+                    <p>Help status: {{ post.get_help_status_display }}</p>
+                </div>
+            {% endfor %}
+            {% else %}
+            <p>No posts are available.</p>
+            {% endif %}
+        </div>
+        <div class="block-column col-right">
+            <p> date picker to go here.</p>
+        </div>
+    </div>
+</div>
 {% endblock %}
