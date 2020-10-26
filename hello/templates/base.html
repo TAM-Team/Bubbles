@@ -86,6 +86,75 @@
 	  background-color: #ffff;
 	  color:black;
     }
+    .body-block {
+      box-sizing: border-box;
+    }
+    .block:after{
+      content: "";
+      display: table;
+      clear: both;
+    }
+    .block-column {
+      float: left;
+      padding: 10px;
+    }
+    .col-left{
+      width:80%;
+    }
+    .col-right{
+      width:20%;
+    }
+    .sub-block{
+      background-color:#dddddd;
+      padding: 2%;
+      margin: 2%;
+    }
+    .dropbtn {
+  background-color: #3498DB;
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+}
+
+.dropbtn:hover, .dropbtn:focus {
+  background-color: #2980B9;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  overflow: auto;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-button {
+  width: 100%;
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-button:hover {background-color: #ddd;}
+
+.show {display: block;}
+
+    /* Responsive layout - makes the columns stack on top of each other instead of next to each other */
+    @media screen and (max-width: 600px) {
+      .block-column {
+        width: 100%;
+      }
+    }
   </style>
   <!-- ORIGINAL signup/login JS, found easier more efficient way to do this though.
 
