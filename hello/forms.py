@@ -85,12 +85,20 @@ class CreatePostForm(forms.ModelForm):
 
     class Meta:
         model = Post
-        fields = ('post_title', 'description', 'help_status', 'poster', 'created_date')
+        fields = ('post_title', "poster", 'description', 'help_status', 'created_date')
+
+    def form_valid(self, form):
+        form = form.save(commit=False)
+        form.poster = self.request.user
+        form.save()
+        return super().form_valid(form)
 
 class CreateEventForm(forms.ModelForm):
 
     class Meta:
         model = Event
-        fields = ('event_title', 'description', 'location', 'start_date', 'end_date', 'start_time', 'end_time', 'attachment')
+        fields = ('event_title', 'organiser', 'description', 'location', 'start_date', 'end_date', 'start_time', 'end_time', 'attachment')
 
-
+    def __init__(self, *args, **kwargs):
+        super(CreateEventForm, self).__init__(*args, **kwargs)
+        self.fields['organiser'].widget.attrs['readonly'] = True

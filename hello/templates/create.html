@@ -1,12 +1,74 @@
 {% extends "home.html" %}
 {% block content %}
+<h1>Create</h1>
+<div class="dropdown">
+  <button id="btnDropdown" onclick="openDropMenu()" class="dropbtn">Create a post</button>
+  <div id="myDropdown" class="dropdown-content">
+    <button onclick="changeForm()" id="btnChangeDropdown" class="dropdown-button">Create an event</button>
+  </div>
+</div>
 
-
-<form method="post">
+<form id="post_form" method='POST'>
   {% csrf_token %}
   {{ create_post_form.as_p }}
-  {{ create_event_form.as_p }}
-  <button type="submit">Save changes</button>
+  <button type="submit" name="btn_post">Confirm</button>
 </form>
+<form id="event_form" method='POST' style="display:none;">
+  {% csrf_token %}
+  {{ create_event_form.as_p }}
+  <button type="submit" name="btn_event">Confirm</button>
+</form>
+
+<script>
+/* When the user clicks on the button,
+toggle between hiding and showing the dropdown content */
+function openDropMenu() {
+  document.getElementById("myDropdown").classList.toggle("show");
+}
+
+/* When the user clicks on the change dropdown button,
+toggle between hiding and showing the forms and swap text of buttons */
+function changeForm() {
+  btnContent = document.getElementById("btnChangeDropdown");
+  btnDropdown = document.getElementById("btnDropdown");
+  postForm = document.getElementById("post_form");
+  eventForm = document.getElementById("event_form");
+  if (btnDropdown.value=="Create a post") {
+    btnContent.value = "Create a post";
+    btnDropdown.value = "Create an event";
+    postForm.style.display = "block"
+    eventForm.style.display = "none"
+  }
+  else {
+    btnDropdown.value = "Create a post";
+    btnContent.value = "Create an event";
+    postForm.style.display = "none"
+    eventForm.style.display = "block"
+  }
+}
+
+// Close the dropdown if the user clicks outside of it
+window.onclick = function(event) {
+  if (!event.target.matches('.dropbtn')) {
+    var dropdowns = document.getElementsByClassName("dropdown-content");
+    var i;
+    for (i = 0; i < dropdowns.length; i++) {
+      var openDropdown = dropdowns[i];
+      if (openDropdown.classList.contains('show')) {
+        openDropdown.classList.remove('show');
+      }
+    }
+  }
+}
+</script>
+<script>
+    var onLoaded = function() {
+        var location_input = document.getElementById('id_location');
+        var autocomplete = new google.maps.places.Autocomplete(location_input);
+
+    }
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDZ2H-4oqs0b1pBNXtwydP-ne7BF6OX8DI&libraries=places&callback=onLoaded" async defer></script>
+
 
 {% endblock %}

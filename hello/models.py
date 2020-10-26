@@ -31,13 +31,16 @@ class User(AbstractUser):
     profile_picture = models.ImageField(blank=True, null=True, upload_to="i/")
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
-    address = models.CharField(max_length=1025, default="Mount Albert, Auckland, New Zealand")
+    address = models.CharField(max_length=2225, default="Mount Albert, Auckland, New Zealand")
     # user_address = models.ForeignKey(Address, on_delete=models.PROTECT, null=True)
     class Meta:
         ordering = ['email']
 
     def __str__(self):
         return self.email
+
+    def get_name(self):
+        return "" + self.first_name + " " + self.last_name
     # def get_image(self):
     #     if (self.profile_picture != null):
     #         return self.profile_picture
@@ -77,8 +80,9 @@ class Helper(models.Model):
 
 
 class Event(models.Model):
-    event_title = models.TextField("Event Title")
-    location = models.TextField("Location")
+    event_title = models.CharField("Event Title", max_length=255)
+    location = models.CharField("Location", max_length=2225, default="Unitec Institute of Technology, Mt Albert Campus Map Carrington Road, Mount Albert, Auckland, New Zealand")
+
     description = models.TextField("Description")
     start_date = models.DateTimeField("Start Date")
     end_date = models.DateTimeField("End Date")
@@ -100,8 +104,3 @@ class Assisstant(models.Model):
 
     def __str__(self):
         return self.post
-
-# class UserForm(ModelForm):
-#     class Meta:
-#         model = User
-#         fields = ['username', 'first_name', 'last_name', 'email', 'password']
