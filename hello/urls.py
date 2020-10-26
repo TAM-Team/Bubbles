@@ -11,11 +11,13 @@ urlpatterns = [
     path(r"db/", views.db, name="db"),
     path(r"register/", views.register, name="register"),
     path(r"account/", views.edit_profile, name="account"),
+    # View database to make sure adding user was working
     path(r"db.sqlite3/", views.db, name="db.sqlite3"),
+
     path(r"create/", views.create_post, name="create"),
     path(r"map/", views.map, name="map"),
     # ex: /post/5/
-    #edit_profile
-    path(r'post/<int:question_id>/', views.post_detail, name='post_detail'),
-    path(r'event/<int:question_id>/', views.event_detail, name='event_detail'),
+    path(r'post/<int:post_id>/', views.post_detail, name='post_detail'),
+    # ex: /event/5/
+    path(r'event/<int:event_id>/', views.event_detail, name='event_detail'),
 ]
