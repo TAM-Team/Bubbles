@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from .models import User
 
-from .models import Post, Event
+from .models import Post, Event, Helper, Assisstant
 
 
 UserAdmin.ordering = ('email',)
@@ -23,3 +23,5 @@ UserAdmin.ordering = ('email',)
 admin.site.register(User, UserAdmin)
 admin.site.register(Post)
 admin.site.register(Event)
+admin.site.register(Helper)
+admin.site.register(Assisstant)
