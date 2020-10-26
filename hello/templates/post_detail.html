@@ -1,0 +1,10 @@
+{% extends "home.html" %}
+{% load static %}
+{% block content %}
+
+<h1>{{ post.post_title }}</h1>
+<h4>Created by {{ post.poster.get_name }} on {{ post.created_date }}</h4>
+<p>{{ post.description }}</p>
+<p>Help status: {{ post.get_help_status_display }}</p>
+
+{% endblock %}
