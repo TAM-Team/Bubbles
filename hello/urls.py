@@ -14,7 +14,8 @@ urlpatterns = [
     # View database to make sure adding user was working
     path(r"db.sqlite3/", views.db, name="db.sqlite3"),
 
-    path(r"create/", views.create_post, name="create"),
+    path(r"create/post/", views.create_post, name="createpost"),
+    path(r"create/event/", views.create_event, name="createevent"),
     path(r"map/", views.map, name="map"),
     # ex: /post/5/
     path(r'post/<int:post_id>/', views.post_detail, name='post_detail'),

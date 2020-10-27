@@ -88,13 +88,22 @@ def edit_profile(request):
 
 @login_required
 def create_post(request):
-    if request.method == 'POST' and 'btn_post' in request.POST:
+    if request.method == 'POST':
         create_post_form = CreatePostForm(request.POST, user=request.user)
         create_post_form.poster = request.user
         if create_post_form.is_valid():
             create_post_form.save()
             return redirect('hello:home')
-    if request.method == 'POST' and 'btn_event' in request.POST:
+    else:
+        create_post_form = CreatePostForm(user=request.user)
+    args = {}
+    args.update(csrf(request))
+    args['create_post_form'] = create_post_form
+    return render(request, 'create_post.html', args)
+
+@login_required
+def create_event(request):
+    if request.method == 'POST':
         create_event_form = CreateEventForm(request.POST, user=request.user)
         create_event_form.poster = request.user
         if create_event_form.is_valid():
@@ -102,12 +111,10 @@ def create_post(request):
             return redirect('hello:home')
     else:
         create_event_form = CreateEventForm(user=request.user)
-        create_post_form = CreatePostForm(user=request.user)
     args = {}
     args.update(csrf(request))
     args['create_event_form'] = create_event_form
-    args['create_post_form'] = create_post_form
-    return render(request, 'create.html', args)
+    return render(request, 'create_event.html', args)
 
 def post_detail(request, post_id):
     post = get_object_or_404(Post, pk=post_id)

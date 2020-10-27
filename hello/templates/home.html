@@ -2,12 +2,40 @@
 {% load static %}
 
 {% block leftnav %}
+
     <li class="active">
         <a href="{% url 'hello:home' %}"><span class="glyphicon glyphicon-home" /> Home</a>
       </li>
-      <li><a href="{% url 'hello:create' %}"><i class="fa fa-plus" aria-hidden="true"></i>Create</a></li>
+      <li><div class="dropdown">
+            <button id="btnDropdown" onclick="openDropMenu()" class="dropbtn">Create<i class="fas fa-caret-down"></i></button>
+            <div id="myDropdown" class="dropdown-content">
+
+            <button class="dropdown-button"><a href="{% url 'hello:createpost' %}" style="color: #1e347b;">Post</a></button>
+            <button class="dropdown-button"><a href="{% url 'hello:createevent' %}" style="color: #1e347b;">Event</a></button>
+            </div>
+        </div></li>
       <li><a href="{% url 'hello:map' %}"><i class="fa fa-map" aria-hidden="true"></i>Map</a></li>
-      <li><a href="{% url 'hello:create' %}"><i class="fa fa-bell" aria-hidden="true"></i>Notifications</a></li>
+      <li><a href="{% url 'hello:createevent' %}"><i class="fa fa-bell" aria-hidden="true"></i>Notifications</a></li>
+<script>/* When the user clicks on the button,
+toggle between hiding and showing the dropdown content */
+function openDropMenu() {
+  document.getElementById("myDropdown").classList.toggle("show");
+}
+
+
+// Close the dropdown if the user clicks outside of it
+window.onclick = function(event) {
+  if (!event.target.matches('.dropbtn')) {
+    var dropdowns = document.getElementsByClassName("dropdown-content");
+    var i;
+    for (i = 0; i < dropdowns.length; i++) {
+      var openDropdown = dropdowns[i];
+      if (openDropdown.classList.contains('show')) {
+        openDropdown.classList.remove('show');
+      }
+    }
+  }
+}</script>
 {% endblock %}
 
 {% block rightnav %}
