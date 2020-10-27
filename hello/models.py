@@ -88,7 +88,7 @@ class Event(models.Model):
     end_date = models.DateTimeField("End Date")
     start_time = models.DateTimeField("Start Time")
     end_time = models.DateTimeField("End Time")
-    attachment = models.TextField("Attach File")
+    attachment = models.FileField("Attach File", null=True,blank=True)
     organiser = models.ForeignKey(User, on_delete=models.PROTECT, null=True)
 
     def __str__(self):
