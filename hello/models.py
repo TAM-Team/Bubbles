@@ -84,10 +84,10 @@ class Event(models.Model):
     location = models.CharField("Location", max_length=2225, default="Unitec Institute of Technology, Mt Albert Campus Map Carrington Road, Mount Albert, Auckland, New Zealand")
 
     description = models.TextField("Description")
-    start_date = models.DateTimeField("Start Date")
-    end_date = models.DateTimeField("End Date")
-    start_time = models.DateTimeField("Start Time")
-    end_time = models.DateTimeField("End Time")
+    start_date = models.DateField("Start Date")
+    end_date = models.DateField("End Date")
+    start_time = models.TimeField("Start Time")
+    end_time = models.TimeField("End Time")
     attachment = models.FileField("Attach File", null=True,blank=True)
     organiser = models.ForeignKey(User, on_delete=models.PROTECT, null=True)
 

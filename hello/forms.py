@@ -4,7 +4,7 @@ from django import forms
 from django.conf import settings
 from django.contrib.auth.forms import UserCreationForm
 from django.forms import TextInput
-from django.forms import ModelForm, models
+from django.forms import ModelForm, models, DateInput, TimeInput
 from django.utils.html import conditional_escape
 from django.utils.safestring import mark_safe
 from crispy_forms.helper import FormHelper
@@ -103,6 +103,12 @@ class CreateEventForm(forms.ModelForm):
     class Meta:
         model = Event
         fields = ('event_title', 'description', 'location', 'start_date', 'end_date', 'start_time', 'end_time', 'attachment')
+        widgets = {
+            'start_date': DateInput(),
+            'end_date': DateInput(),
+            'start_time': TimeInput(),
+            'end_time': TimeInput(),
+        }
 
     def __init__(self, *args, **kwargs):
         self._user = kwargs.pop('user')
