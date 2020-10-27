@@ -4,13 +4,19 @@ from django import forms
 from django.conf import settings
 from django.contrib.auth.forms import UserCreationForm
 from django.forms import TextInput
-from django.forms import ModelForm, models, DateInput, TimeInput
+from django.forms import ModelForm, models
 from django.utils.html import conditional_escape
 from django.utils.safestring import mark_safe
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit
 from hello.models import User, Post, Event
 
+
+class DateInput(forms.DateInput):
+    input_type = 'date'
+
+class TimeInput(forms.TimeInput):
+    input_type = 'time'
 
 # Custom image Widget
 def thumbnail(image_path, width, height):
