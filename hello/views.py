@@ -1,7 +1,7 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.db import transaction
-from django.shortcuts import render, get_list_or_404, redirect
+from django.shortcuts import render, get_list_or_404, redirect, get_object_or_404
 from django.http import HttpResponse, HttpResponseNotFound, Http404
 from django.template import loader
 from django.template.context_processors import csrf
@@ -9,14 +9,16 @@ from django.views import generic
 import os
 import pprint
 import pdb
+
+
 pp = pprint.PrettyPrinter(indent=4)
 
 
 from pygments import console
 
-from .forms import RegisterForm, CustomUserChangeForm, CreatePostForm
+from .forms import RegisterForm, CustomUserChangeForm, CreatePostForm, CreateEventForm
 
-from .models import Greeting, Post, User
+from .models import Greeting, Post, User, Event
 
 
 
@@ -86,17 +88,36 @@ def edit_profile(request):
 
 @login_required
 def create_post(request):
-    if request.method == "POST":
-        postForm = CreatePostForm(request.POST)
-        postForm.poster = request.user
-        if postForm.is_valid():
-            postForm.save()
+    if request.method == 'POST' and 'btn_post' in request.POST:
+        create_post_form = CreatePostForm(request.POST, user=request.user)
+        create_post_form.poster = request.user
+        if create_post_form.is_valid():
+            create_post_form.save()
+            return redirect('hello:home')
+    if request.method == 'POST' and 'btn_event' in request.POST:
+        create_event_form = CreateEventForm(request.POST, user=request.user)
+        create_event_form.poster = request.user
+        if create_event_form.is_valid():
+            create_event_form.save()
             return redirect('hello:home')
     else:
-        postForm = CreatePostForm()
-        postForm.poster = request.user
+        create_event_form = CreateEventForm(user=request.user)
+        create_post_form = CreatePostForm(user=request.user)
     args = {}
     args.update(csrf(request))
-    args['create_post_form'] = postForm
+    args['create_event_form'] = create_event_form
+    args['create_post_form'] = create_post_form
     return render(request, 'create.html', args)
+
+def post_detail(request, post_id):
+    post = get_object_or_404(Post, pk=post_id)
+    return render(request, 'post_detail.html', {'post': post})
+
+def event_detail(request, event_id):
+    try:
+        event = Event.objects.get(pk=event_id)
+    except Event.DoesNotExist:
+        raise Http404("Post does not exist")
+    return render(request, 'event_detail.html', {'event': event})
+
 

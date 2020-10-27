@@ -85,20 +85,33 @@ class CreatePostForm(forms.ModelForm):
 
     class Meta:
         model = Post
-        fields = ('post_title', "poster", 'description', 'help_status', 'created_date')
+        fields = ('post_title', 'description', 'help_status', 'created_date')
+    def __init__(self, *args, **kwargs):
+        self._user = kwargs.pop('user')
+        super(CreatePostForm, self).__init__(*args, **kwargs)
 
-    def form_valid(self, form):
-        form = form.save(commit=False)
-        form.poster = self.request.user
-        form.save()
-        return super().form_valid(form)
+    def save(self, commit=True):
+        inst = super(CreatePostForm, self).save(commit=False)
+        inst.poster = self._user
+        if commit:
+            inst.save()
+            self.save_m2m()
+        return inst
 
 class CreateEventForm(forms.ModelForm):
 
     class Meta:
         model = Event
-        fields = ('event_title', 'organiser', 'description', 'location', 'start_date', 'end_date', 'start_time', 'end_time', 'attachment')
+        fields = ('event_title', 'description', 'location', 'start_date', 'end_date', 'start_time', 'end_time', 'attachment')
 
     def __init__(self, *args, **kwargs):
+        self._user = kwargs.pop('user')
         super(CreateEventForm, self).__init__(*args, **kwargs)
-        self.fields['organiser'].widget.attrs['readonly'] = True
+
+    def save(self, commit=True):
+        inst = super(CreateEventForm, self).save(commit=False)
+        inst.organiser = self._user
+        if commit:
+            inst.save()
+            self.save_m2m()
+        return inst
