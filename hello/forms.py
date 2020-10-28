@@ -4,24 +4,29 @@ from django import forms
 from django.conf import settings
 from django.contrib.auth.forms import UserCreationForm
 from django.forms import TextInput
-from django.forms import ModelForm, models
+from django.forms import ModelForm, models, DateTimeInput
 from django.utils.html import conditional_escape
 from django.utils.safestring import mark_safe
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit
 from hello.models import User, Post, Event
+from datetimepicker.widgets import DateTimePicker
 
 
 class DateInput(forms.DateInput):
     input_type = 'date'
 
+
 class TimeInput(forms.TimeInput):
     input_type = 'time'
+
 
 # Custom image Widget
 def thumbnail(image_path, width, height):
     absolute_url = posixpath.join(settings.MEDIA_URL, image_path)
     return '<img src="%s" alt="%s" class="widget-img" />' % (absolute_url, image_path)
+
+
 class ImageWidget(forms.ClearableFileInput):
     template = '<div>%(image)s</div>' \
                '<div>%(clear_template)s</div>' \
@@ -59,7 +64,6 @@ class ImageWidget(forms.ClearableFileInput):
         return mark_safe(output)
 
 
-
 # class AddressForm(forms.ModelForm):
 #     class Meta:
 #         model = Address
@@ -75,23 +79,21 @@ class RegisterForm(UserCreationForm):
     class Meta:
         model = User
         fields = ["profile_picture", "email", "first_name", "last_name", "address", "password1", "password2"]
-        #widgets = {'profile_picture': ImageWidget}
-
+        # widgets = {'profile_picture': ImageWidget}
 
 
 class CustomUserChangeForm(forms.ModelForm):
-
     class Meta:
         model = User
         fields = ("profile_picture", "email", "first_name", "last_name", "address")
-        #widgets = {'profile_picture': ImageWidget}
+        # widgets = {'profile_picture': ImageWidget}
 
 
 class CreatePostForm(forms.ModelForm):
-
     class Meta:
         model = Post
         fields = ('post_title', 'description', 'help_status', 'created_date')
+
     def __init__(self, *args, **kwargs):
         self._user = kwargs.pop('user')
         super(CreatePostForm, self).__init__(*args, **kwargs)
@@ -104,17 +106,12 @@ class CreatePostForm(forms.ModelForm):
             self.save_m2m()
         return inst
 
-class CreateEventForm(forms.ModelForm):
 
+class CreateEventForm(forms.ModelForm):
     class Meta:
         model = Event
-        fields = ('event_title', 'description', 'location', 'start_date', 'end_date', 'start_time', 'end_time', 'attachment')
-        widgets = {
-            'start_date': DateInput(),
-            'end_date': DateInput(),
-            'start_time': TimeInput(),
-            'end_time': TimeInput(),
-        }
+        fields = ('event_title', 'description', 'location', 'start_date_time', 'end_date_time', 'attachment')
+        #widgets = {'start_date_time': super.start_time}
 
     def __init__(self, *args, **kwargs):
         self._user = kwargs.pop('user')

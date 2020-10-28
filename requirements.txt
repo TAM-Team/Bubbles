@@ -5,3 +5,4 @@ djangorestframework
 pygments
 django-crispy-forms
 Pillow
+django-datetimepicker
